@@ -1,6 +1,14 @@
 <?php
 class AdminController extends Controller
 {
+  public function __construct()
+  {
+    // if (!isset($_SESSION['admin_logged_in'])) {
+    //   header('Location: ' . BASEURL . '/login');
+    //   exit;
+    // }
+  }
+
   public function index()
   {
     $data['judul'] = 'Dashboard Admin - Bantimurung';

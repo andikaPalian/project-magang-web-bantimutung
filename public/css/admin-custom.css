@@ -70,3 +70,16 @@
 .ql-editor p {
   margin-bottom: 0.5rem;
 }
+
+/* Blog Dashboard */
+#editor_blog {
+  min-height: 400px;
+}
+#editor_blog .ql-editor {
+  color: #374151;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+#editor_blog .ql-editor p {
+  margin-bottom: 0.85rem;
+}
