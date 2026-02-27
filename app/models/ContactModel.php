@@ -54,7 +54,7 @@ class ContactModel
 
   public function getContactInfo()
   {
-    $this->db->query("SELECT * FROM contact WHERE id = :id");
+    $this->db->query("SELECT * FROM contact WHERE id = 1");
 
     return $this->db->single();
   }

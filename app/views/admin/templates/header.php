@@ -5,8 +5,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title><?= $data['judul'] ?? 'Admin Panel'; ?></title>
+
   <link href="<?= BASEURL; ?>/css/output.css" rel="stylesheet">
   <link href="<?= BASEURL; ?>/css/admin-custom.css" rel="stylesheet">
+
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-gray-50 text-gray-800 font-sans antialiased overflow-hidden">
