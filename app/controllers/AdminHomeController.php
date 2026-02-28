@@ -56,6 +56,14 @@ class AdminHomeController extends Controller
           }
         }
       }
+      if ($newImages) {
+        $_SESSION['pesan_sukses'] = "Teks dan Gambar Halaman Home berhasil diperbarui.";
+      } else {
+        $_SESSION['pesan_sukses'] = "Teks Halaman Home berhasil diperbarui.";
+      }
+
+      header('Location: ' . BASEURL . '/adminhome');
+      exit;
     }
   }
 }
