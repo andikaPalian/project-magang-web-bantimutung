@@ -67,7 +67,7 @@
 
       <div class="group cursor-pointer" onclick="openModal(this)" data-aos="fade-up" data-aos-delay="0">
         <div class="overflow-hidden rounded-3xl mb-6">
-          <img src="<?= BASEURL; ?>/img/home/<?= !empty($data['home_content']['image_1']) && $data['home_content']['image_1'] !== 'default.jpg' ? htmlspecialchars($data['home_content']['image_1']) : 'placeholder.jpg'; ?>" alt="Air Terjun" class="modal-img w-full h-64 object-cover transform group-hover:scale-110 transition duration-700">
+          <img src="<?= BASEURL; ?>/uploads/img/home/<?= !empty($data['home_content']['image_1']) ? htmlspecialchars($data['home_content']['image_1']) : 'default.jpg'; ?>" alt="Air Terjun" class="modal-img w-full h-64 object-cover transform group-hover:scale-110 transition duration-700">
         </div>
         <div class="flex items-center space-x-2 text-emerald-600 font-bold mb-3">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -82,7 +82,7 @@
 
       <div class="group cursor-pointer" onclick="openModal(this)" data-aos="fade-up" data-aos-delay="150">
         <div class="overflow-hidden rounded-3xl mb-6">
-          <img src="<?= BASEURL; ?>/img/home/<?= !empty($data['home_content']['image_2']) && $data['home_content']['image_2'] !== 'default.jpg' ? htmlspecialchars($data['home_content']['image_2']) : 'placeholder.jpg'; ?>" alt="Kupu-kupu" class="modal-img w-full h-64 object-cover transform group-hover:scale-110 transition duration-700">
+          <img src="<?= BASEURL; ?>/uploads/img/home/<?= !empty($data['home_content']['image_2']) ? htmlspecialchars($data['home_content']['image_2']) : 'default.jpg'; ?>" alt="Kupu-kupu" class="modal-img w-full h-64 object-cover transform group-hover:scale-110 transition duration-700">
         </div>
         <div class="flex items-center space-x-2 text-emerald-600 font-bold mb-3">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -97,7 +97,7 @@
 
       <div class="group cursor-pointer" onclick="openModal(this)" data-aos="fade-up" data-aos-delay="300">
         <div class="overflow-hidden rounded-3xl mb-6">
-          <img src="<?= BASEURL; ?>/img/home/<?= !empty($data['home_content']['image_3']) && $data['home_content']['image_3'] !== 'default.jpg' ? htmlspecialchars($data['home_content']['image_3']) : 'placeholder.jpg'; ?>" alt="Hutan" class="modal-img w-full h-64 object-cover transform group-hover:scale-110 transition duration-700">
+          <img src="<?= BASEURL; ?>/uploads/img/home/<?= !empty($data['home_content']['image_3']) ? htmlspecialchars($data['home_content']['image_3']) : 'default.jpg'; ?>" alt="Hutan" class="modal-img w-full h-64 object-cover transform group-hover:scale-110 transition duration-700">
         </div>
         <div class="flex items-center space-x-2 text-emerald-600 font-bold mb-3">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

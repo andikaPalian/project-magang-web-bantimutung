@@ -45,7 +45,7 @@
             <?php $img1 = (!empty($data['home']['image_1']) && $data['home']['image_1'] !== 'default.jpg') ? $data['home']['image_1'] : null; ?>
             <div class="w-40 h-28 rounded-xl <?= $img1 ? 'border border-gray-200' : 'border-2 border-dashed border-gray-300' ?> overflow-hidden bg-gray-50 shrink-0 flex items-center justify-center">
               <?php if ($img1) : ?>
-                <img src="<?= BASEURL; ?>/img/home/<?= htmlspecialchars($img1); ?>" class="w-full h-full object-cover" alt="Preview Image 1">
+                <img src="<?= BASEURL; ?>/uploads/img/home/<?= !empty($data['home']['image_1']) ? htmlspecialchars($data['home']['image_1']) : 'default.jpg'; ?>" alt="Preview 1" class="...">
               <?php else : ?>
                 <div class="flex flex-col items-center justify-center text-gray-400">
                   <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@
             <?php $img2 = (!empty($data['home']['image_2']) && $data['home']['image_2'] !== 'default.jpg') ? $data['home']['image_2'] : null; ?>
             <div class="w-40 h-28 rounded-xl <?= $img2 ? 'border border-gray-200' : 'border-2 border-dashed border-gray-300' ?> overflow-hidden bg-gray-50 shrink-0 flex items-center justify-center">
               <?php if ($img2) : ?>
-                <img src="<?= BASEURL; ?>/img/home/<?= htmlspecialchars($img2); ?>" class="w-full h-full object-cover" alt="Preview Image 2">
+                <img src="<?= BASEURL; ?>/uploads/img/home/<?= !empty($data['home']['image_2']) ? htmlspecialchars($data['home']['image_2']) : 'default.jpg'; ?>" alt="Preview 2" class="...">
               <?php else : ?>
                 <div class="flex flex-col items-center justify-center text-gray-400">
                   <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -117,7 +117,7 @@
             <?php $img3 = (!empty($data['home']['image_3']) && $data['home']['image_3'] !== 'default.jpg') ? $data['home']['image_3'] : null; ?>
             <div class="w-40 h-28 rounded-xl <?= $img3 ? 'border border-gray-200' : 'border-2 border-dashed border-gray-300' ?> overflow-hidden bg-gray-50 shrink-0 flex items-center justify-center">
               <?php if ($img3) : ?>
-                <img src="<?= BASEURL; ?>/img/home/<?= htmlspecialchars($img3); ?>" class="w-full h-full object-cover" alt="Preview Image 3">
+                <img src="<?= BASEURL; ?>/uploads/img/home/<?= !empty($data['home']['image_3']) ? htmlspecialchars($data['home']['image_3']) : 'default.jpg'; ?>" alt="Preview 3" class="...">
               <?php else : ?>
                 <div class="flex flex-col items-center justify-center text-gray-400">
                   <svg class="w-8 h-8 mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
