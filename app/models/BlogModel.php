@@ -84,4 +84,20 @@ class BlogModel
 
     return $this->db->rowCount();
   }
+
+  public function getPublishedBlogs()
+  {
+    $this->db->query("SELECT blog.*, blog_categories.nama_kategori FROM blog LEFT JOIN blog_categories ON blog.category_id = blog_categories.id WHERE blog.status = 'published' ORDER BY blog.tanggal_rilis DESC");
+
+    return $this->db->resultSet();
+  }
+
+  public function getBlogBySlug($slug)
+  {
+    $this->db->query("SELECT blog.*, blog_categories.nama_kategori FROM blog LEFT JOIN blog_categories ON blog.category_id = blog_categories.id WHERE blog.slug = :slug AND blog.status = 'published'");
+
+    $this->db->bind('slug', $slug);
+
+    return  $this->db->single();
+  }
 }

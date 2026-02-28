@@ -13,7 +13,6 @@
 
 <section class="sticky top-[72px] z-40 bg-white/95 backdrop-blur-md pt-6 pb-4 border-b border-gray-100 transition-all shadow-sm">
   <div class="max-w-7xl mx-auto px-6">
-
     <div class="flex flex-col lg:flex-row items-center gap-4 mb-4" data-aos="fade-up">
 
       <div class="relative w-full lg:flex-1">
@@ -22,147 +21,174 @@
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
         </div>
-        <input type="text" class="block w-full pl-12 pr-4 py-3 bg-gray-50/80 border border-gray-100 rounded-full text-sm placeholder-gray-400 focus:outline-none focus:bg-white focus:border-primary focus:ring-1 focus:ring-primary transition" placeholder="Cari artikel...">
+        <input type="text" id="searchInput" class="block w-full pl-12 pr-4 py-3 bg-gray-50/80 border border-gray-100 rounded-full text-sm placeholder-gray-400 focus:outline-none focus:bg-white focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 transition" placeholder="Cari artikel berdasarkan judul...">
       </div>
 
       <div class="flex overflow-x-auto w-full lg:w-auto pb-2 lg:pb-0 gap-3 items-center" style="scrollbar-width: none;">
-        <button class="px-6 py-3 bg-primary text-white text-sm font-medium rounded-full whitespace-nowrap shadow-sm hover:shadow transition">Semua</button>
-        <button class="px-6 py-3 bg-gray-50 text-gray-600 text-sm font-medium rounded-full whitespace-nowrap hover:bg-gray-100 transition border border-gray-100">Wisata Alam</button>
-        <button class="px-6 py-3 bg-gray-50 text-gray-600 text-sm font-medium rounded-full whitespace-nowrap hover:bg-gray-100 transition border border-gray-100">Edukasi</button>
-        <button class="px-6 py-3 bg-gray-50 text-gray-600 text-sm font-medium rounded-full whitespace-nowrap hover:bg-gray-100 transition border border-gray-100">Petualangan</button>
-        <button class="px-6 py-3 bg-gray-50 text-gray-600 text-sm font-medium rounded-full whitespace-nowrap hover:bg-gray-100 transition border border-gray-100">Tips Wisata</button>
+        <button class="filter-btn active px-6 py-3 bg-emerald-600 text-white text-sm font-medium rounded-full whitespace-nowrap shadow-sm transition" data-filter="all">Semua</button>
+
+        <?php if (!empty($data['categories'])) : ?>
+          <?php foreach ($data['categories'] as $category) : ?>
+            <button class="filter-btn px-6 py-3 bg-gray-50 text-gray-600 text-sm font-medium rounded-full whitespace-nowrap hover:bg-gray-100 transition border border-gray-100" data-filter="<?= htmlspecialchars($category['nama_kategori']); ?>">
+              <?= htmlspecialchars($category['nama_kategori']); ?>
+            </button>
+          <?php endforeach; ?>
+        <?php endif; ?>
       </div>
 
     </div>
 
-    <p class="text-sm text-gray-500" data-aos="fade-up" data-aos-delay="100">5 dari 5 artikel</p>
+    <p id="totalBlogsText" class="text-sm text-gray-500" data-aos="fade-up" data-aos-delay="100">
+      Menampilkan <?= $data['total_blogs']; ?> artikel
+    </p>
   </div>
 </section>
 
-<section class="pb-24 bg-white">
+<section class="pb-24 bg-white min-h-[50vh]">
   <div class="max-w-7xl mx-auto px-6">
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8" id="blogContainer">
 
-      <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-50 group" data-aos="fade-up" data-aos-delay="0">
-        <div class="relative h-56 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
+      <?php if (empty($data['blogs'])) : ?>
+        <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 bg-gray-50 rounded-3xl border border-gray-100 border-dashed" id="emptyStateContainer">
+          <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+          </svg>
+          <h3 class="text-xl font-bold text-gray-700">Belum Ada Artikel</h3>
+          <p class="text-gray-500 mt-2">Nantikan cerita dan informasi menarik dari kami segera.</p>
         </div>
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4 text-xs font-bold">
-            <span class="text-primary bg-secondary px-3 py-1 rounded-full">Wisata Alam</span>
-            <span class="flex items-center text-gray-400"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg> 1.245</span>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition">Pesona Air Terjun Bantimurung yang Memukau</h3>
-          <p class="text-gray-500 text-sm mb-6 line-clamp-2">Air terjun Bantimurung merupakan salah satu destinasi wisata alam paling populer di Sulawesi Selatan dengan pemandangan yang eksotis...</p>
-          <div class="flex items-center text-gray-400 text-xs border-t border-gray-100 pt-4">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span class="mr-4">Ahmad Rizky</span>
-            <span>10 Feb 2026</span>
-          </div>
-        </div>
-      </div>
+      <?php else : ?>
 
-      <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-50 group" data-aos="fade-up" data-aos-delay="100">
-        <div class="relative h-56 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-153eb36402868-b73ce1787c80?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4 text-xs font-bold">
-            <span class="text-primary bg-secondary px-3 py-1 rounded-full">Edukasi</span>
-            <span class="flex items-center text-gray-400"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg> 982</span>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition">Mengenal 250+ Spesies Kupu-Kupu di Bantimurung</h3>
-          <p class="text-gray-500 text-sm mb-6 line-clamp-2">Bantimurung dikenal sebagai 'Kingdom of Butterflies' atau Kerajaan Kupu-Kupu. Julukan ini pertama kali diberikan oleh naturalis asal Inggris...</p>
-          <div class="flex items-center text-gray-400 text-xs border-t border-gray-100 pt-4">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span class="mr-4">Siti Nurhaliza</span>
-            <span>5 Feb 2026</span>
-          </div>
-        </div>
-      </div>
+        <?php $delay = 0; ?>
+        <?php foreach ($data['blogs'] as $blog) : ?>
 
-      <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-50 group" data-aos="fade-up" data-aos-delay="200">
-        <div class="relative h-56 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4 text-xs font-bold">
-            <span class="text-primary bg-secondary px-3 py-1 rounded-full">Petualangan</span>
-            <span class="flex items-center text-gray-400"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg> 756</span>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition">Eksplorasi Gua Prasejarah di Kawasan Karst Bantimurung</h3>
-          <p class="text-gray-500 text-sm mb-6 line-clamp-2">Kawasan karst Bantimurung-Bulusaraung merupakan kawasan karst terbesar kedua di dunia, menyimpan keindahan gua-gua alam yang eksotis...</p>
-          <div class="flex items-center text-gray-400 text-xs border-t border-gray-100 pt-4">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span class="mr-4">Budi Santoso</span>
-            <span>28 Jan 2026</span>
-          </div>
-        </div>
-      </div>
+          <a href="<?= BASEURL; ?>/blog/read/<?= htmlspecialchars($blog['slug']); ?>"
+            class="blog-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-50 group flex flex-col h-full"
+            data-category="<?= htmlspecialchars($blog['nama_kategori'] ?? 'Uncategorized'); ?>"
+            data-aos="fade-up"
+            data-aos-delay="<?= $delay; ?>">
 
-      <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-50 group" data-aos="fade-up" data-aos-delay="0">
-        <div class="relative h-56 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1541625602330-2277a4c46182?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4 text-xs font-bold">
-            <span class="text-primary bg-secondary px-3 py-1 rounded-full">Tips Wisata</span>
-            <span class="flex items-center text-gray-400"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg> 1.567</span>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition">Tips Liburan Hemat ke Bantimurung untuk Keluarga</h3>
-          <p class="text-gray-500 text-sm mb-6 line-clamp-2">Bantimurung merupakan destinasi wisata yang ramah keluarga dan tidak akan menguras kantong jika Anda merencanakannya dengan baik...</p>
-          <div class="flex items-center text-gray-400 text-xs border-t border-gray-100 pt-4">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span class="mr-4">Dewi Kartika</span>
-            <span>20 Jan 2026</span>
-          </div>
-        </div>
-      </div>
+            <div class="relative h-56 overflow-hidden bg-gray-100 shrink-0">
+              <?php $imgSrc = !empty($blog['gambar_thumbnail']) ? BASEURL . '/uploads/img/blog/' . htmlspecialchars($blog['gambar_thumbnail']) : BASEURL . '/img/default_blog.jpg'; ?>
+              <img src="<?= $imgSrc; ?>" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-700" alt="<?= htmlspecialchars($blog['judul_artikel']); ?>">
+            </div>
 
-      <div class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition duration-300 border border-gray-50 group" data-aos="fade-up" data-aos-delay="100">
-        <div class="relative h-56 overflow-hidden">
-          <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?auto=format&fit=crop&w=600&q=80" class="w-full h-full object-cover transform group-hover:scale-105 transition duration-500">
-        </div>
-        <div class="p-6">
-          <div class="flex justify-between items-center mb-4 text-xs font-bold">
-            <span class="text-primary bg-secondary px-3 py-1 rounded-full">Petualangan</span>
-            <span class="flex items-center text-gray-400"><svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-              </svg> 634</span>
-          </div>
-          <h3 class="text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-primary transition">Trekking Seru di Hutan Tropis Bantimurung</h3>
-          <p class="text-gray-500 text-sm mb-6 line-clamp-2">Bagi para pecinta alam dan petualangan, trekking di hutan tropis Bantimurung adalah aktivitas yang sangat wajib untuk Anda coba...</p>
-          <div class="flex items-center text-gray-400 text-xs border-t border-gray-100 pt-4">
-            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-            </svg>
-            <span class="mr-4">Andi Pratama</span>
-            <span>15 Jan 2026</span>
-          </div>
-        </div>
+            <div class="p-6 flex flex-col flex-grow">
+
+              <div class="flex justify-between items-center mb-4 text-xs font-bold shrink-0">
+                <span class="text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full border border-emerald-100">
+                  <?= htmlspecialchars($blog['nama_kategori'] ?? 'Uncategorized'); ?>
+                </span>
+                <span class="flex items-center text-gray-400">
+                  <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                  </svg>
+                  <?= number_format($blog['jumlah_pembaca'] ?? 0, 0, ',', '.'); ?>
+                </span>
+              </div>
+
+              <h3 class="blog-title text-xl font-bold text-gray-900 mb-3 leading-tight group-hover:text-emerald-600 transition line-clamp-2 shrink-0">
+                <?= htmlspecialchars($blog['judul_artikel']); ?>
+              </h3>
+
+              <div class="text-gray-500 text-sm mb-6 line-clamp-3 flex-grow">
+                <?= htmlspecialchars(substr(strip_tags($blog['konten_artikel']), 0, 160)) . '...'; ?>
+              </div>
+
+              <div class="flex items-center text-gray-400 text-xs border-t border-gray-100 pt-4 mt-auto shrink-0">
+                <svg class="w-4 h-4 mr-1 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+                <span class="mr-4 truncate max-w-[120px] font-medium"><?= htmlspecialchars($blog['penulis']); ?></span>
+                <span class="ml-auto"><?= date('d M Y', strtotime($blog['tanggal_rilis'])); ?></span>
+              </div>
+
+            </div>
+          </a>
+
+          <?php $delay += 100; // Efek stagger agar kartu muncul berurutan 
+          ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
+
+      <div id="noResultsMessage" class="hidden col-span-1 md:col-span-2 lg:col-span-3 text-center py-20">
+        <svg class="w-16 h-16 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM13 10V3L4 14h7v7l9-11h-7z"></path>
+        </svg>
+        <h3 class="text-xl font-bold text-gray-700">Artikel Tidak Ditemukan</h3>
+        <p class="text-gray-500 mt-2">Coba gunakan kata kunci pencarian yang lain.</p>
       </div>
 
     </div>
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('searchInput');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const blogCards = document.querySelectorAll('.blog-card');
+    const totalText = document.getElementById('totalBlogsText');
+    const noResultsMessage = document.getElementById('noResultsMessage');
+    const emptyStateContainer = document.getElementById('emptyStateContainer'); // Jika DB benar-benar kosong
+
+    function filterBlogs() {
+      const searchTerm = searchInput.value.toLowerCase();
+      // Ambil kategori dari tombol yang sedang aktif
+      const activeFilter = document.querySelector('.filter-btn.active').getAttribute('data-filter');
+      let visibleCount = 0;
+
+      // Jika database benar-benar kosong, hentikan fungsi
+      if (emptyStateContainer) return;
+
+      blogCards.forEach(card => {
+        const title = card.querySelector('.blog-title').innerText.toLowerCase();
+        const category = card.getAttribute('data-category');
+
+        // Logika Pencocokan
+        const matchesSearch = title.includes(searchTerm);
+        const matchesCategory = (activeFilter === 'all' || category === activeFilter);
+
+        if (matchesSearch && matchesCategory) {
+          card.style.display = 'flex'; // Menjaga layout flexbox kartu
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Update teks jumlah artikel
+      totalText.innerText = `Menampilkan ${visibleCount} artikel`;
+
+      // Tampilkan pesan "Tidak ditemukan" jika hasil filter/search = 0
+      if (visibleCount === 0) {
+        noResultsMessage.classList.remove('hidden');
+      } else {
+        noResultsMessage.classList.add('hidden');
+      }
+    }
+
+    // Event Listener untuk Input Pencarian (saat user mengetik)
+    if (searchInput) {
+      searchInput.addEventListener('input', filterBlogs);
+    }
+
+    // Event Listener untuk Tombol Filter Kategori
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        // 1. Reset warna semua tombol menjadi abu-abu
+        filterBtns.forEach(b => {
+          b.classList.remove('bg-emerald-600', 'text-white', 'shadow-sm', 'active');
+          b.classList.add('bg-gray-50', 'text-gray-600', 'border-gray-100');
+        });
+
+        // 2. Warnai tombol yang sedang diklik menjadi hijau
+        this.classList.remove('bg-gray-50', 'text-gray-600', 'border-gray-100');
+        this.classList.add('bg-emerald-600', 'text-white', 'shadow-sm', 'active');
+
+        // 3. Jalankan ulang filter
+        filterBlogs();
+      });
+    });
+  });
+</script>
