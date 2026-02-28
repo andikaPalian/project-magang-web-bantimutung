@@ -108,7 +108,10 @@
                 <div class="flex items-center space-x-4">
                   <div class="w-10 h-10 rounded-lg bg-gray-100 overflow-hidden flex-shrink-0">
                     <?php if ($blog['gambar_thumbnail']) : ?>
-                      <img src="<?= BASEURL; ?>/img/blog/<?= $blog['gambar_thumbnail']; ?>" alt="Thumbnail" class="w-full h-full object-cover">
+                      <img id="blog_preview"
+                        src="<?= isset($data['blog']['gambar_thumbnail']) ? BASEURL . '/uploads/img/blog/' . $data['blog']['gambar_thumbnail'] : ''; ?>"
+                        class="<?= isset($data['blog']['gambar_thumbnail']) ? '' : 'hidden'; ?> absolute inset-0 w-full h-full object-cover z-10"
+                        alt="Thumbnail Preview">
                     <?php else : ?>
                       <div class="w-full h-full flex items-center justify-center bg-emerald-50 text-emerald-500">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -48,7 +48,7 @@ class AdminBlogController extends Controller
         $imageExt = explode('.', $fileName);
         $imageExt = strtolower(end($imageExt));
 
-        if (in_array($imageExt, $ext) && $fileSize > 2000000) {
+        if (in_array($imageExt, $ext) && $fileSize < 2000000) {
           $fileName = 'blog_' . uniqid() . '.' . $imageExt;
           move_uploaded_file($tmpName, '../public/uploads/img/blog/' . $fileName);
         } else {
@@ -98,7 +98,7 @@ class AdminBlogController extends Controller
         $imageExt = explode('.', $fileName);
         $imageExt = strtolower(end($imageExt));
 
-        if (in_array($imageExt, $ext) && $fileSize > 2000000) {
+        if (in_array($imageExt, $ext) && $fileSize < 2000000) {
           $fileName = 'blog_' . uniqid() . '.' . $imageExt;
           move_uploaded_file($tmpName, '../public/uploads/img/blog/' . $fileName);
         } else {

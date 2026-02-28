@@ -132,7 +132,7 @@
       <?php else : ?>
         <?php foreach ($data['latest_blogs'] as $blog) : ?>
           <a href="<?= BASEURL; ?>/blog/read/<?= $blog['slug']; ?>" class="bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-md transition transform hover:-translate-y-2 block" data-aos="fade-up">
-            <img src="<?= BASEURL; ?>/img/blog/<?= $blog['gambar_thumbnail'] ? htmlspecialchars($blog['gambar_thumbnail']) : 'default.jpg'; ?>" class="w-full h-48 object-cover" alt="<?= htmlspecialchars($blog['judul_artikel']); ?>">
+            <img src="<?= BASEURL; ?>/uploads/img/blog/<?= $blog['gambar_thumbnail'] ? htmlspecialchars($blog['gambar_thumbnail']) : 'default.jpg'; ?>" class="w-full h-48 object-cover" alt="<?= htmlspecialchars($blog['judul_artikel']); ?>">
             <div class="p-6">
               <span class="inline-block bg-emerald-50 text-emerald-600 text-xs font-bold px-3 py-1 rounded-full mb-4">
                 <?= htmlspecialchars($blog['nama_kategori'] ?? 'Berita'); ?>
