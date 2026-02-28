@@ -29,9 +29,15 @@
 
         <div class="p-6">
           <div class="flex items-center space-x-3 bg-gray-50 p-3 rounded-xl border border-gray-100">
-            <div class="w-10 h-10 rounded-full bg-gray-300 flex-shrink-0"></div>
+            <?php
+            $nama_admin = $_SESSION['admin_nama'] ?? 'Admin User';
+            $inisial = strtoupper(substr(str_replace(' ', '', $nama_admin), 0, 2));
+            ?>
+            <div class="w-10 h-10 rounded-full bg-emerald-100 text-emerald-600 font-bold flex items-center justify-center flex-shrink-0">
+              <?= $inisial; ?>
+            </div>
             <div>
-              <p class="text-sm font-bold text-gray-900">Admin User</p>
+              <p class="text-sm font-bold text-gray-900 truncate w-32"><?= htmlspecialchars($nama_admin); ?></p>
               <p class="text-xs text-gray-500">Administrator</p>
             </div>
           </div>
@@ -43,6 +49,13 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z" />
             </svg>
             <span>Dashboard</span>
+          </a>
+
+          <a href="<?= BASEURL; ?>/adminhome" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium <?= (isset($data['menu_aktif']) && $data['menu_aktif'] == 'home') ? 'bg-emerald-50 text-emerald-600' : 'text-gray-600 hover:bg-gray-50' ?> transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+            <span>Home</span>
           </a>
 
           <a href="<?= BASEURL; ?>/adminabout" class="flex items-center space-x-3 px-4 py-3 rounded-xl text-sm font-medium <?= (isset($data['menu_aktif']) && $data['menu_aktif'] == 'about') ? 'bg-emerald-50 text-emerald-600' : 'text-gray-600 hover:bg-gray-50' ?> transition">
@@ -77,7 +90,7 @@
       </div>
 
       <div class="p-6">
-        <a href="#" class="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 rounded-xl transition">
+        <a href="<?= BASEURL; ?>/login/logout" onclick="return confirm('Apakah Anda yakin ingin keluar?');" class="flex items-center space-x-3 px-4 py-3 text-sm font-medium text-red-500 hover:bg-red-50 rounded-xl transition">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
@@ -89,11 +102,10 @@
     <main class="flex-1 flex flex-col h-screen overflow-hidden bg-gray-50">
 
       <header class="flex items-center justify-between px-10 pt-10 pb-4 z-10">
-
         <div>
           <?php if (isset($data['menu_aktif']) && $data['menu_aktif'] == 'dashboard') : ?>
             <h1 class="text-[28px] font-bold text-gray-900 mb-1 tracking-tight">Overview</h1>
-            <p class="text-sm text-gray-500">Welcome back, Admin. Here's what's happening at the park today.</p>
+            <p class="text-sm text-gray-500">Welcome back, <?= htmlspecialchars($_SESSION['admin_nama'] ?? 'Admin'); ?>. Here's what's happening at the park today.</p>
           <?php endif; ?>
         </div>
 
