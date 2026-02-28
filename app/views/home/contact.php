@@ -1,5 +1,5 @@
 <section class="relative h-[50vh] min-h-[400px] flex items-center justify-center text-center text-white pt-20">
-  <div class="absolute inset-0 bg-cover bg-center bg-no-repeat grayscale-[20%]" style="background-image: url('https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=1920&q=80');">
+  <div class="absolute inset-0 bg-cover bg-center bg-no-repeat grayscale-[20%]" style="background-image: url('https://i0.wp.com/www.bantimurungbulusaraung.id/wp-content/uploads/2023/10/DJI_0169-scaled.jpg?fit=2560%2C1635&ssl=1');">
     <div class="absolute inset-0 bg-black/60"></div>
   </div>
   <div class="relative z-10 px-4 max-w-3xl mx-auto" data-aos="zoom-in" data-aos-duration="1000">
