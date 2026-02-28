@@ -1,5 +1,5 @@
 <?php
-class AdminAboutController extends Controller
+class AdminHomeController extends Controller
 {
   public function __construct()
   {
@@ -11,22 +11,22 @@ class AdminAboutController extends Controller
 
   public function index()
   {
-    $data['judul'] = 'Kelola Halaman About - Bantimurung';
-    $data['menu_aktif'] = 'about';
+    $data['judul'] = 'Edit Home - Bantimurung';
+    $data['menu_aktif'] = 'home';
 
-    $data['about'] = $this->model('AboutModel')->getAboutData();
+    $data['home'] = $this->model('HomeModel')->getHomeContent();
 
     $this->view('admin/templates/header', $data);
-    $this->view('admin/dashboard/about', $data);
+    $this->view('admin/dashboard/home', $data);
     $this->view('admin/templates/footer');
   }
 
-  public function saveAbout()
+  public function saveHome()
   {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-      $this->model('AboutModel')->updateTextData($_POST);
+      $this->model('HomeModel')->updateTextData($_POST);
 
-      $images = ['hero_image', 'sejarah_image', 'keindahan_image', 'konservasi_image'];
+      $images = ['image_1', 'image_2', 'image_3'];
       $newImages = false;
 
       foreach ($images as $image) {
@@ -34,7 +34,7 @@ class AdminAboutController extends Controller
           $filename = $_FILES[$image]['name'];
           $tmpName = $_FILES[$image]['tmp_name'];
           $fileSize = $_FILES[$image]['size'];
-          $ext = ['jpg', 'jpeg', 'png'];
+          $ext = ['jpg', 'jpeg', 'png', 'webp'];
 
           $imageExt = explode('.', $filename);
           $imageExt = strtolower(end($imageExt));
@@ -42,28 +42,20 @@ class AdminAboutController extends Controller
           if (in_array($imageExt, $ext)) {
             if ($fileSize < 2000000) {
               $newFileName = $image . '_' . uniqid() . '.' . $imageExt;
-              $path = '../public/uploads/img/about/' . $newFileName;
+              $path = '../public/uploads/img/home/' . $newFileName;
 
               if (move_uploaded_file($tmpName, $path)) {
-                $this->model('AboutModel')->updateImage($image, $newFileName);
+                $this->model('HomeModel')->updateImage($image, $newFileName);
+                $newImages = true;
               }
             } else {
               $_SESSION['pesan_info'] = "Peringatan: Ada gambar yang gagal diupload karena ukurannya lebih dari 2MB.";
             }
           } else {
-            $_SESSION['pesan_info'] = "Peringatan: Format gambar harus JPG atau PNG.";
+            $_SESSION['pesan_info'] = "Peringatan: Format gambar harus JPG, PNG, atau WEBP.";
           }
         }
       }
-
-      if ($newImages) {
-        $_SESSION['pesan_sukses'] = "Teks dan Gambar berhasil diperbarui.";
-      } else {
-        $_SESSION['pesan_sukses'] = "Halaman About berhasi diperbarui.";
-      }
-
-      header('Location: ' . BASEURL . '/adminabout');
-      exit;
     }
   }
 }

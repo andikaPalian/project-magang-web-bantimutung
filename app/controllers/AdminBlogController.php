@@ -3,10 +3,10 @@ class AdminBlogController extends Controller
 {
   public function __construct()
   {
-    // if (!isset($_SESSION['admin_logged_in'])) {
-    //   header('Location: ' . BASEURL . '/login');
-    //   exit;
-    // }
+    if (!isset($_SESSION['admin_logged_in'])) {
+      header('Location: ' . BASEURL . '/login');
+      exit;
+    }
   }
 
   public function index()
@@ -50,7 +50,7 @@ class AdminBlogController extends Controller
 
         if (in_array($imageExt, $ext) && $fileSize > 2000000) {
           $fileName = 'blog_' . uniqid() . '.' . $imageExt;
-          move_uploaded_file($tmpName, '../public/img/blog/' . $fileName);
+          move_uploaded_file($tmpName, '../public/uploads/img/blog/' . $fileName);
         } else {
           $_SESSION['pesan_info'] = "Format gambar harus JPG/PNG dan maksimal 2MB.";
           header('Location: ' . BASEURL . '/adminblog/create');
@@ -100,7 +100,7 @@ class AdminBlogController extends Controller
 
         if (in_array($imageExt, $ext) && $fileSize > 2000000) {
           $fileName = 'blog_' . uniqid() . '.' . $imageExt;
-          move_uploaded_file($tmpName, '../public/img/blog/' . $fileName);
+          move_uploaded_file($tmpName, '../public/uploads/img/blog/' . $fileName);
         } else {
           $_SESSION['pesan_info'] = "Format gambar harus JPG/PNG dan maksimal 2MB.";
           header('Location: ' . BASEURL . '/adminblog/edit/' . $_POST['id']);
@@ -124,8 +124,8 @@ class AdminBlogController extends Controller
     $blog = $this->model('BlogModel')->getBlogById($id);
 
     if ($this->model('BlogModel')->deleteBlogData($id) > 0) {
-      if ($blog['gambar_thumbnail'] && file_exists('../public/img/blog/' . $blog['gambar_thumbnail'])) {
-        unlink('../public/img/blog/' . $blog['gambar_thumbnail']);
+      if ($blog['gambar_thumbnail'] && file_exists('../public/uploads/img/blog/' . $blog['gambar_thumbnail'])) {
+        unlink('../public/uploads/img/blog/' . $blog['gambar_thumbnail']);
       }
       $_SESSION['pesan_sukses'] = "Artikel berhasil dihapus!";
     } else {
