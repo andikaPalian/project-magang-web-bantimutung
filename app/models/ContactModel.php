@@ -61,12 +61,25 @@ class ContactModel
 
   public function updateContactInfo($data)
   {
-    $this->db->query("UPDATE contact SET alamat = :alamat, email = :email, no_telepon = :no_telepon link_gmaps = :link_gmaps WHERE id - 1");
+    $this->db->query("UPDATE contact SET alamat = :alamat, email = :email, no_telepon = :no_telepon, link_gmaps = :link_gmaps WHERE id = 1");
 
     $this->db->bind('alamat', $data['alamat']);
     $this->db->bind('email', $data['email']);
     $this->db->bind('no_telepon', $data['no_telepon']);
     $this->db->bind('link_gmaps', $data['link_gmaps']);
+
+    $this->db->execute();
+    return $this->db->rowCount();
+  }
+
+  public function addMessage($data)
+  {
+    $this->db->query("INSERT INTO messages (nama_pengirim, email_pengirim, subjek, isi_pesan, status) VALUES (:nama, :email, :subjek, :pesan, 'new')");
+
+    $this->db->bind('nama', $data['nama']);
+    $this->db->bind('email', $data['email']);
+    $this->db->bind('subjek', $data['subjek']);
+    $this->db->bind('pesan', $data['pesan']);
 
     $this->db->execute();
     return $this->db->rowCount();
