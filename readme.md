@@ -74,7 +74,7 @@ Ikuti langkah-langkah berikut untuk menjalankan *project* ini di komputer lokal 
 
 ### Langkah-langkah
 1. **Clone Repositori**
-   git clone [https://github.com/andikaPalian/bantimurung-website.git](https://github.com/andikaPalian/bantimurung-website.git)
+   git clone [https://github.com/andikaPalian/bantimurung-website.git]([https://github.com/andikaPalian/bantimurung-website.git](https://github.com/andikaPalian/project-magang-web-bantimutung.git))
    
 2. **Pindahkan Folder**
    Pindahkan folder *project* ini ke dalam direktori *server* lokal Anda (contoh: `htdocs` untuk XAMPP atau `www` untuk Laragon).
